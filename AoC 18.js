@@ -123,25 +123,14 @@ Object.keys(keyList).forEach((k)=> {
 });
 
 var pathStates = [];
-// check path against list of shortest paths for that state. If not found, add to the list
+// check path against map of shortest paths for that state. If not found, add to the map
 function checkPathState(path) {
-	let copy = path.keys.join('').split('').sort().join('');
-	let point = pathStates.find((a)=>a.curKey==path.curKey&&a.keys==copy);
-	
-	if (point != null) {
-		if (point.steps <= path.steps) 
-		    return false;
-		else 
-		    point.steps = path.steps;
+	let hash = path.keys.join('').split('').sort().join('') + '.' + path.curKey;
+	if (pathStates[hash] == null || pathStates[hash] > path.steps) {
+		pathStates[hash] = path.steps;
 		return true;
-	} else  {
-		point = {};
-		point.steps = path.steps;
-		point.curKey = path.curKey;
-		point.keys = copy;
-		pathStates.push(point); 
-		return true;
-	}
+	} else
+		return false;
 }
 
 var minsteps = Number.MAX_SAFE_INTEGER; // fastest finished path for tree purging check
