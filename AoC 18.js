@@ -148,9 +148,7 @@ var minsteps = Number.MAX_SAFE_INTEGER; // fastest finished path for tree purgin
 var pathPointer = 0; // index of currently processing branch
 var paths = [{steps:0, curKey:'@', keys:['@']}]; // path tree. Initial position is at @
 // iterate for all paths
-var cnt = 0; //15971
 while (pathPointer<paths.length) {
-	cnt++;
 	let curPath = paths[pathPointer];
 	let curKey = curPath.curKey;
 	// available path options from current key
